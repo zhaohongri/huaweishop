@@ -39,6 +39,7 @@ function watchTask(){
     watch('./src/lib/**', libTask);
     watch('./src/api/**', apiTask);
     watch('./src/css/**', sassTask);
+    watch('./src/js/**', jsTask);
 }
 
 //同步静态资源
@@ -58,6 +59,11 @@ function apiTask(){
     return src('./src/api/**')
             .pipe(dest('./dist/api'));
 }
+//同步js任务
+function jsTask(){
+    return src('./src/js/**')
+            .pipe(dest('./dist/js'));
+}
 
 //sass的任务
 function sassTask(){
@@ -68,5 +74,5 @@ function sassTask(){
 
 
 module.exports = {
-    dev: series(cleanTask, parallel(fileIncludeTask, staticTask, libTask, apiTask, sassTask), parallel(webTask, watchTask) )
+    dev: series(cleanTask, parallel(fileIncludeTask, staticTask, libTask, apiTask, sassTask,jsTask), parallel(webTask, watchTask) )
 };
